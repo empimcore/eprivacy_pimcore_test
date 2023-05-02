@@ -7,7 +7,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use \Pimcore\Controller\FrontendController;
+use Pimcore\Controller\FrontendController;
 
 
 class Erecht24Controller extends FrontendController
@@ -25,14 +25,15 @@ class Erecht24Controller extends FrontendController
 	 *
 	 * Test with 
 	 * curl -X GET "https://api.e-recht24.de/v2/imprint" -H "Content-Type: application/json" -H "Accept: application/json" \ 
-	                                                     -H "eRecht24-api-key: e81cbf18a5239377aa4972773d34cc2b81ebc672879581bce29a0a4c414bf117" \
-														 -H "eRecht24-plugin-key: hxsddw3ouZtcHT7WaE2W5urEyHvXV4g9ewPd7i4rY3CMN5iP9q3exHfkmhxLTgLo"
-														 
-	   api-key: https://api-docs.e-recht24.de/
-	   plugin-key: https://github.com/fenepedia/contao-er24-rechtstexte/blob/main/src/ContaoErecht24RechtstexteBundle.php
-       	   
+	 *                                                   -H "eRecht24-api-key: e81cbf18a5239377aa4972773d34cc2b81ebc672879581bce29a0a4c414bf117" \
+	 *						     -H "eRecht24-plugin-key: hxsddw3ouZtcHT7WaE2W5urEyHvXV4g9ewPd7i4rY3CMN5iP9q3exHfkmhxLTgLo"
+	 *													 
+	 *  api-key: https://api-docs.e-recht24.de/
+	 *  plugin-key: https://github.com/fenepedia/contao-er24-rechtstexte/blob/main/src/ContaoErecht24RechtstexteBundle.php
+       	 *  
 	 */
-	private function getErecht24Content($name = 'imprint', $lang = 'en') {
+	private function getErecht24Content($name = 'imprint', $lang = 'en')
+	{
 		$language = 'html_' . strtolower($lang);
 		$url = 'https://api.e-recht24.de/v2/' . $name;
 		$response = $client->request('GET', $url, [
@@ -59,13 +60,13 @@ class Erecht24Controller extends FrontendController
 		return $html;
 	}
 	
-	/**
-	 * @param Request $request
-	 *
-	 * @Route("/privacy/{slug}")
-	 */
-    public function defaultAction(Request $request, string $slug = 'imprint')
-    {
+        /**
+         * @param Request $request
+         *
+         * @Route("/privacy/{slug}")
+         */
+    	public function defaultAction(Request $request, string $slug = 'imprint')
+    	{
 		$content = $this->getErecht24Content($slug);
 		$response = new Response();
 		$response->setContent($content);
@@ -75,8 +76,8 @@ class Erecht24Controller extends FrontendController
 		$response->headers->set('Content-Type', 'text/html');
 		
 
-        return $response;
-    }
+        	return $response;
+    	}
 }
 
 ?>
